@@ -12,12 +12,15 @@ wgetterDir="$baseDir/wgetter/"
 
 list="$gitDir/youtube.list"
 
-#cd $baseDir
-
 if [ -f $wgetterDir$localList ]
 then
 echo "Localcopy exists"
-echo "Comparing $list with local $baseDir/$localList"
+echo "Comparing $list with local $wgetterDir$localList"
+#grep -Fxvf $wgetterDir$localList $list
+while read -r line ; do
+    echo "Reading new download link - $line"
+    # your code goes here
+done < <(grep -Fxvf $wgetterDir$localList $list)
 else
 echo "Localcopy not exists in $wgetterDir$localList, Starting a fresh download from $list....."
 # read $list
