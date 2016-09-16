@@ -19,7 +19,17 @@ echo "Comparing $list with local $wgetterDir$localList"
 #grep -Fxvf $wgetterDir$localList $list
 while read -r line ; do
     echo "Reading new download link - $line"
-    # your code goes here
+    # youtube-dl $link
+    #if link contains "youtube" use youtube-dl else use wget
+    if [[ $line == https://www.youtube.com/* ]]
+	then
+		echo "Initializing download from youtube-dl..."
+	    # youtube-dl $link
+	else
+		echo "Initializing download from wget..."
+		# wget $link
+	fi
+    echo "$line" >> $wgetterDir$localList
 done < <(grep -Fxvf $wgetterDir$localList $list)
 else
 echo "Localcopy not exists in $wgetterDir$localList, Starting a fresh download from $list....."
@@ -29,9 +39,17 @@ touch $wgetterDir$localList
 
 while read -r line
 do
-    name="$line"
-    echo "Download link read from file - $name"
+    echo "Download link read from file - $line"
+    # youtube-dl $link
+    #if link contains "youtube" use youtube-dl else use wget
+    if [[ $line == https://www.youtube.com/* ]]
+	then
+		echo "Initializing download from youtube-dl..."
+	    # youtube-dl $link
+	else
+		echo "Initializing download from wget..."
+		# wget $link
+	fi
     echo "$line" >> $wgetterDir$localList
-    #success add this to localList
 done < "$list"
 fi
